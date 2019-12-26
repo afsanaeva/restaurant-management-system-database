@@ -1,0 +1,193 @@
+CREATE DATABASE Restaurant
+
+
+CREATE TABLE customers (cus_id int(20) PRIMARY KEY,
+                       cus_name varchar(20),
+                       cus_phone int(20),
+                       cus_address varchar(20),
+                       payment_id int(20));
+
+Create table employee(emp_id int(20)Primary key,
+                     emp_name varchar(20),
+                     emp_phone int(20));
+
+
+
+CREATE TABLE vehicle (v_id int (20) not null,
+                      v_type varchar(25)
+                     );
+
+CREATE TABLE payment_method (pay_id int(20),
+                            total_price int(100),
+                            pay_type varchar (20));
+
+
+CREATE TABLE orders(order_id int(20) NOT null,
+                   cus_id int(20),
+                   total_price int(100),
+                   emp_id int(20),
+                   v_id int (20));
+
+
+insert into customers(cus_id,cus_name,cus_phone,cus_address,payment_id)
+VALUES(101, 'Eva', '0171888883', 'tongi', '501')
+
+insert into customers(cus_id,cus_name,cus_phone,cus_address,payment_id)
+VALUES(102, 'afsana', '01713434', 'uttara', '502')
+
+
+insert into customers(cus_id,cus_name,cus_phone,cus_address,payment_id)
+VALUES(103, 'eti', '01913434', 'airport', '503')
+
+insert into customers(cus_id,cus_name,cus_phone,cus_address,payment_id)
+VALUES(104, 'barua', '01813434', 'khilkhet', '504')
+
+insert into customers(cus_id,cus_name,cus_phone,cus_address,payment_id)
+VALUES(105, 'ria', '01213434', 'mirpur', '505')
+
+insert into customers(cus_id,cus_name,cus_phone,cus_address,payment_id)
+VALUES(106, 'sojol', '0121434', 'gazipur', '506')
+
+
+
+insert into employee(emp_id,emp_name,emp_phone)
+VALUES(301,'jahid',01903030);
+
+insert into employee(emp_id,emp_name,emp_phone)
+VALUES(302,'hasan',19030666);
+
+insert into employee(emp_id,emp_name,emp_phone)
+VALUES(303,'sourov',01903050);
+
+
+insert into employee(emp_id,emp_name,emp_phone)
+VALUES(304,'opu',01978050);
+
+insert into employee(emp_id,emp_name,emp_phone)
+VALUES(305,'tuli',01978850);
+
+insert into employee(emp_id,emp_name,emp_phone)
+VALUES(306,'ayan',01967778850);
+
+
+
+INSERT INTO vehicle(v_id,v_type)
+VALUES (401,'van');
+
+INSERT INTO vehicle(v_id,v_type)
+ VALUES (402,'bike');
+
+INSERT INTO vehicle(v_id,v_type) 
+VALUES (403,'cycle');
+
+
+
+INSERT into payment_method(pay_id,total_price,pay_type)
+VALUES(501,1000,'cash');
+
+INSERT into payment_method(pay_id,total_price,pay_type)
+VALUES(502,2000,'cash');
+
+INSERT into payment_method(pay_id,total_price,pay_type)
+VALUES(503,2500,'bikash');
+
+INSERT into payment_method(pay_id,total_price,pay_type)
+VALUES(504,3000,'bikash');
+
+INSERT into payment_method(pay_id,total_price,pay_type)
+VALUES(505,7000,'credit');
+
+INSERT into payment_method(pay_id,total_price,pay_type)
+VALUES(506,9000,'credit');
+
+
+
+INSERT INTO orders(order_id,cus_id,total_price,emp_id,v_id)
+VALUES(201, 101, 1000, 301, 401)
+
+
+INSERT INTO orders(order_id,cus_id,total_price,emp_id,v_id)
+VALUES(202, 102, 2000, 302, 402)
+
+INSERT INTO orders(order_id,cus_id,total_price,emp_id,v_id)
+VALUES(203, 103, 2500, 303, 403)
+
+INSERT INTO orders(order_id,cus_id,total_price,emp_id,v_id)
+VALUES(204, 104, 3000, 304, 404)
+
+INSERT INTO orders(order_id,cus_id,total_price,emp_id,v_id)
+VALUES(205, 105, 7000, 305, 405)
+
+INSERT INTO orders(order_id,cus_id,total_price,emp_id,v_id)
+VALUES(206, 106, 9000, 306, 406)
+
+
+ALTER TABLE orders
+ADD COLUMN food_type varchar(20)
+
+
+SELECT * FROM `customers` WHERE cus_name like 'e%'
+
+
+
+SELECT Min(total_price)
+FROM orders
+
+SELECT MAX(total_price)
+FROM orders
+
+
+SELECT avg(total_price)
+FROM orders
+
+SELECT SUM(total_price)
+FROM orders
+
+SELECT COUNT(emp_id)
+FROM employee
+
+GROUP BY:
+SELECT cus_address,cus_name 
+FROM customers 
+GROUP BY cus_name
+
+
+ORDER BY:
+SELECT * FROM `customers` 
+ORDER by cus_name DESC
+
+
+SELECT * FROM employee
+WHERE emp_id=302 OR emp_name='hasan';
+
+SELECT * FROM employee
+WHERE emp_id=303 OR emp_name='ayan';
+
+SELECT * FROM employee
+WHERE emp_id=304 AND emp_name='opu';
+
+SELECT * FROM `customers`
+WHERE payment_id IN (501, 503, 505);
+
+
+
+
+
+SUB Queries:-
+
+SELECT MAX(total_price) 
+FROM orders 
+where total_price<(SELECT max(total_price) 
+FROM orders 
+Where total_price<(SELECT max(total_price) 
+FROM orders
+Where total_price<(SELECT max(total_price) 
+FROM orders)))
+
+
+JOINING:-
+
+SELECT customers.cus_id,customers.cus_name,payment_method.total_price,payment_method.pay_type 
+FROM customers,payment_method 
+WHERE customers.payment_id=payment_method.payment_id
+
